@@ -1,0 +1,64 @@
+<h1>Sign up</h1>
+
+<form action="/insert_user" method="post">
+
+  <div>
+    <label for="email_box">Email</label>
+    <input id="email_box" name="query_email" placeholder="Choose a email..." type="text">
+  </div>
+                 
+  <div>
+    <label for="username_box">Username</label>
+      
+    <input type="text" id="username_box" name="query_username">
+  </div>
+         
+  <div>
+    <label for="private_box">Private</label>
+    <input id="private_box" name="query_private" type="checkbox">
+  </div>
+         
+  <div>
+    <label for="comments_count_box">Comments count</label>
+      
+    <input type="text" id="comments_count_box" name="query_comments_count">
+  </div>
+         
+  <div>
+    <label for="sent_follow_requests_count_box">Sent follow requests count</label>
+      
+    <input type="text" id="sent_follow_requests_count_box" name="query_sent_follow_requests_count">
+  </div>
+         
+  <div>
+    <label for="received_follow_requests_count_box">Received follow requests count</label>
+      
+    <input type="text" id="received_follow_requests_count_box" name="query_received_follow_requests_count">
+  </div>
+         
+  <div>
+    <label for="own_photos_count_box">Own photos count</label>
+      
+    <input type="text" id="own_photos_count_box" name="query_own_photos_count">
+  </div>
+    
+  <div>
+    <label for="password_box">Password</label>
+    <input id="password_box" name="query_password" placeholder="Choose a password..." type="password">
+  </div>
+
+  <div>
+    <label for="password_confirmation_box">Password Confirmation</label>
+    <input id="password_confirmation_box" name="query_password_confirmation" placeholder="Confirm your password..." type="password">
+  </div>
+
+  <button>
+    Sign up
+  </button>
+</form>
+
+<hr>
+
+<p>
+  Or, <a href="/user_sign_in">Sign in</a> instead.
+</p>
