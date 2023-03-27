@@ -21,7 +21,8 @@
       </td>
 
       <td>
-        <%= a_user.private %>%
+        <% user_privacy = a_user.private ? "Yes" : "No" %>
+        <%= user_privacy %>
       </td>
 
       <td>

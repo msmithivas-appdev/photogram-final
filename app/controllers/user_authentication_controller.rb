@@ -5,11 +5,17 @@ class UserAuthenticationController < ApplicationController
   def index
   @list_of_all_users = User.all.order(:username)
 
-    render({ :template => "user_authentication/users.html.erb" })
+    render({ :template => "user_authentication/index.html.erb" })
 
   end
 
+  def show
+    
+    @the_user = User.where({ :username => params.fetch("path_id") }).at(0)
   
+      render({ :template => "user_authentication/show.html.erb" })
+  
+    end
   
   def sign_in_form
     render({ :template => "user_authentication/sign_in.html.erb" })
