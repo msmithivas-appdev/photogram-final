@@ -6,7 +6,7 @@
 
   <dt>Followers</dt>
   <dd>
-    <%= @the_user.followers%>
+    <%= @the_user.followers.count %>
 
 
       <div>
@@ -22,7 +22,7 @@
   </dd>
 
   <dt>Following</dt>
-  <dd><%= @the_user.following %></dd>
+  <dd><%= @the_user.following.count %></dd>
 
 </dl>
 
@@ -44,7 +44,7 @@
 </nav>
 
 
-<h2>Own photos (<%= @the_user.own_photos_count %>)</h2>
+<h2>Own photos (<%= @the_user.own_photos.count %>)</h2>
 
 <table border="1">
   <tr>
@@ -91,14 +91,16 @@
     </td>
 
     <td>
-      <%= a_photo.likes_count%>
+      <%= a_photo.likes_count %>
     </td>
 
     <td>
-      <a href="/photos/<%= a_photo.id>">
+      <a href="/photos/<%= a_photo.id %>">
         Show details
       </a>
     </td>
+
    </tr>
-   <% end >
+   <% end %>
+
   </table>
