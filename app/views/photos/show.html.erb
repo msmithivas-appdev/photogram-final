@@ -144,3 +144,39 @@
 </div>
 
 <hr>
+
+<h2>Comments</h2>
+
+<table>
+  <tr>
+    <th>Commenter</th>
+    <th>Comment</th>
+    <th>Posted</th>
+  </tr>
+
+    <tr>
+      <td>
+        roselee
+      </td>
+
+      <td>
+        Know how to listen, and you will profit even from those who talk badly.
+      </td>
+
+      <td>
+        almost 4 years ago
+      </td>
+    </tr>  
+
+</table>
+
+<h3>Add a new comment</h3>
+
+<form action="/insert_comment" method="post">
+  <input type="hidden" value="777" name="query_photo_id">
+  
+  <label for="browser_comment">Comment</label>
+  <textarea id="browser_comment" name="query_body" placeholder="Enter a comment..."></textarea>
+
+  <button>Add comment</button>
+</form>

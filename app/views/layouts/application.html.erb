@@ -16,6 +16,10 @@
 
   <body>
 
+<%= session.fetch(:user_id) %>
+<div> <%= notice %></div>
+<div> <%= alert %></div>
+
 <ul>
       <li>
         <a href="/users">

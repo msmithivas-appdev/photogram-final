@@ -1,7 +1,10 @@
+<%# add photo form is shown when user is signed in %>
+<%# when user is not signed in, only show public photos %>
+
 <div>
   <div>
     <h1>
-      List of all photos
+      List of photos
     </h1>
   </div>
 </div>
@@ -76,7 +79,7 @@
     <table border="1">
       <tr>
         <th>
-          ID
+          Image
         </th>
 
         <th>
@@ -84,31 +87,15 @@
         </th>
 
         <th>
-          Image
-        </th>
-
-        <th>
           Owner
         </th>
 
         <th>
-          Location
+          Posted
         </th>
 
         <th>
-          Likes count
-        </th>
-
-        <th>
-          Comments count
-        </th>
-
-        <th>
-          Created at
-        </th>
-
-        <th>
-          Updated at
+          Likes
         </th>
 
         <th>
@@ -118,7 +105,7 @@
       <% @list_of_photos.each do |a_photo| %>
       <tr>
         <td>
-          <%= a_photo.id %>
+          <%= a_photo.image %>
         </td>
 
         <td>
@@ -126,30 +113,15 @@
         </td>
 
         <td>
-          <%= a_photo.image %>
-        </td>
-
-        <td>
           <%= a_photo.owner_id %>
         </td>
 
         <td>
-          <%= a_photo.location %>
+          <%= time_ago_in_words(a_photo.created_at) %>
         </td>
 
-        <td>
+         <td>
           <%= a_photo.likes_count %>
-        </td>
-
-        <td>
-          <%= a_photo.comments_count %>
-        </td>
-
-        <td>
-          <%= time_ago_in_words(a_photo.created_at) %> ago
-        </td>
-        <td>
-          <%= time_ago_in_words(a_photo.updated_at) %> ago
         </td>
 
         <td>
