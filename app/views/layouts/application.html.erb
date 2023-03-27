@@ -16,36 +16,64 @@
 
   <body>
 
-<%= session.fetch(:user_id) %>
+<% if session.fetch(:user_id) == nil  %>
+
+    <ul>
+          <li>
+            <a href="/users">
+              All users
+            </a>
+          </li>
+          
+          <li>
+            <a href="/photos">
+              All public photos
+            </a>
+          </li>
+
+            <li>
+              <a href="/edit_user_profile">
+                Sign in
+              </a>
+            </li>
+
+            <li>
+              <a href="/user_sign_out">
+                Sign out
+              </a>
+            </li>
+      </ul>
+<% else %>
+          <ul>
+          <li>
+            <a href="/users">
+              All users
+            </a>
+          </li>
+          
+          <li>
+            <a href="/photos">
+              All public photos
+            </a>
+          </li>
+
+            <li>
+              <a href="/edit_user_profile">
+                <% the_id = session.fetch(:user_id) %>
+                <%= the_id %>
+              </a>
+            </li>
+
+            <li>
+              <a href="/user_sign_out">
+                Sign out
+              </a>
+            </li>
+      </ul>
+<% end %>
+
 <div> <%= notice %></div>
 <div> <%= alert %></div>
-
-<ul>
-      <li>
-        <a href="/users">
-          All users
-        </a>
-      </li>
-      
-      <li>
-        <a href="/photos">
-          All public photos
-        </a>
-      </li>
-
-        <li>
-          <a href="/edit_user_profile">
-            Sign in
-          </a>
-        </li>
-
-        <li>
-          <a href="/user_sign_out">
-            Sign out
-          </a>
-        </li>
-    </ul>
-
 
     <%= yield %>
   </body>

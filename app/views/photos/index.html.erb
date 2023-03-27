@@ -12,6 +12,7 @@
 <hr>
 
 <div>
+    <% if session.fetch(:user_id) != nil  %>
   <div>
     <h2>
       Add a new photo
@@ -71,6 +72,8 @@
       </button>
     </form>
   </div>
+  <% end %>
+
 </div>
 
 <hr>
