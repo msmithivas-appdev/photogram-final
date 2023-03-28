@@ -60,7 +60,7 @@
             <li>
               <a href="/edit_user_profile">
                 <% the_id = session.fetch(:user_id) %>
-                <%= the_id %>
+                <%= User.where({ :id => the_id }).at(0).username %>
               </a>
             </li>
 

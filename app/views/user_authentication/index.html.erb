@@ -30,23 +30,30 @@
             <% a_follower = User.where({ :id => session.fetch(:user_id) }).at(0) %>
             <% a_followed = User.where({ :id => a_user.id }).at(0) %>
             <% a_request = FollowRequest.where({ :sender_id => a_follower.id }).where({ :recipient_id => a_followed.id}).at(0) %>
-                  <% if a_request = nil %>
+                  <% if a_request == nil %>
 
                   <td>
-                  follow button
+                    <form action="/insert_follow_request" method="post">
+                    <input type="hidden" name="query_recipient_id" value="<%= a_followed.id %>">
+                    <button>
+                      Follow
+                    </button>
+                    </form>
                   </td>
 
                   <% elsif a_request.status == "accepted" %>
 
                   <td>
-                  unfollow link
+                  <a href="/delete_follow_request/<%= a_request.id %>">Unfollow</a>
                   </td>
 
                   <% elsif a_request.status == "pending" %>
                   <td>
-                  Request sent. Cancel link
+                  Request sent. <a href="/delete_follow_request/<%= a_request.id %>">Cancel</a>
                   </td>
 
+                  <% else %>
+                  <td> </td>
                   <% end %>
 
               <% end %>
