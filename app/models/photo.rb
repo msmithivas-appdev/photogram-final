@@ -14,6 +14,8 @@
 #
 class Photo < ApplicationRecord
 
+  mount_uploader :image, ImageUploader
+
   validates(:owner_id, { :presence => true })
   validates(:image, { :presence => true })
   
