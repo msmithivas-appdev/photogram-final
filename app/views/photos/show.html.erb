@@ -14,7 +14,7 @@
       <% if session.fetch(:user_id) == @the_photo.owner_id  %>
       <div>
         <a href="/delete_photo/<%= @the_photo.id %>">
-          Delete photo
+          Delete this photo
         </a>
       </div>
       <% end %>
@@ -39,7 +39,14 @@
         Owner
       </dt>
       <dd>
-        <%= @the_photo.owner_id %>
+        <%= @the_photo.owner.username %>
+      </dd>
+
+       <dt>
+        Posted
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_photo.created_at) + " ago" %>
       </dd>
 
       <dt>
