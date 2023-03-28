@@ -25,6 +25,35 @@
         <%= user_privacy %>
       </td>
 
+            
+            <% if session.fetch(:user_id) != nil  %>
+            <% a_follower = User.where({ :id => session.fetch(:user_id) }).at(0) %>
+            <% a_followed = User.where({ :id => a_user.id }).at(0) %>
+            <% a_request = FollowRequest.where({ :sender_id => a_follower.id }).where({ :recipient_id => a_followed.id}).at(0) %>
+                  <% if a_request = nil %>
+
+                  <td>
+                  follow button
+                  </td>
+
+                  <% elsif a_request.status == "accepted" %>
+
+                  <td>
+                  unfollow link
+                  </td>
+
+                  <% elsif a_request.status == "pending" %>
+                  <td>
+                  Request sent. Cancel link
+                  </td>
+
+                  <% end %>
+
+              <% end %>
+
+
+  
+
       <td>
       <a href="/users/<%= a_user.username %>">Show details</a>
       </td>
