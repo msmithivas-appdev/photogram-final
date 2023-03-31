@@ -16,6 +16,14 @@ class UserAuthenticationController < ApplicationController
       render({ :template => "user_authentication/show.html.erb" })
   
     end
+
+    def show2
+    
+      @the_user = @current_user
+    
+        render({ :template => "user_authentication/feed.html.erb" })
+    
+      end
   
   def sign_in_form
     render({ :template => "user_authentication/sign_in.html.erb" })
@@ -78,6 +86,29 @@ class UserAuthenticationController < ApplicationController
     render({ :template => "user_authentication/edit_profile.html.erb" })
   end
 
+  def update2
+    @user = @current_user
+    @user.username = params.fetch("query_username")
+    @user.email = params.fetch("query_email")
+    @user.password = params.fetch("query_password")
+    @user.password_confirmation = params.fetch("query_password_confirmation")
+
+    @user.private = params.fetch("query_private", false)
+    @user.comments_count = params.fetch("query_comments_count")
+    @user.sent_follow_requests_count = params.fetch("query_sent_follow_requests_count")
+    @user.received_follow_requests_count = params.fetch("query_received_follow_requests_count")
+    # @user.own_photos_count = params.fetch("query_own_photos_count")
+    
+    if @user.valid?
+      @user.save
+
+      redirect_to("/", { :notice => "User account updated successfully."})
+    else
+      render({ :template => "user_authentication/edit_profile_with_errors.html.erb" , :alert => @user.errors.full_messages.to_sentence })
+    end
+  end
+
+  
   def update
     @user = User.where({ :id => params.fetch("path_id") }).at(0)
     # @user = params.fetch("query_username")

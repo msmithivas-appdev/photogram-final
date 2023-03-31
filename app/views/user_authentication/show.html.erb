@@ -47,12 +47,13 @@
   <dt>Following</dt>
   <dd><%= @the_user.following.count %></dd>
 
+  <% if session.fetch(:user_id) == @the_user.id %>
+
   <dt>Edit user</dt>
   <dd>
     <form action="/modify_user/<%= @the_user.id %>" method="post">
       <label for="browser_username">Username</label>
-      <input id="browser_username" type="text" name="query_username" placeholder="<%= @the_user.username %>"
-        >
+      <input id="browser_username" type="text" name="query_username" value="<%= @the_user.username%>">
 
       <label for="browser_private">Private?</label>
       <input id="browser_private" type="checkbox" name="query_private"  checked>
@@ -62,6 +63,7 @@
   </dd>
 
   </dl>
+  <% end %>
 
 <nav>
   <ul>
