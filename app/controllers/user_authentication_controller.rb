@@ -79,16 +79,17 @@ class UserAuthenticationController < ApplicationController
   end
 
   def update
-    @user = @current_user
-    @user.email = params.fetch("query_email")
-    @user.password = params.fetch("query_password")
-    @user.password_confirmation = params.fetch("query_password_confirmation")
+    @user = User.where({ :id => params.fetch("path_id") }).at(0)
+    # @user = params.fetch("query_username")
+    # @user.email = params.fetch("query_email")
+    # @user.password = params.fetch("query_password")
+    # @user.password_confirmation = params.fetch("query_password_confirmation")
     @user.username = params.fetch("query_username")
     @user.private = params.fetch("query_private", false)
-    @user.comments_count = params.fetch("query_comments_count")
-    @user.sent_follow_requests_count = params.fetch("query_sent_follow_requests_count")
-    @user.received_follow_requests_count = params.fetch("query_received_follow_requests_count")
-    @user.own_photos_count = params.fetch("query_own_photos_count")
+    # @user.comments_count = params.fetch("query_comments_count")
+    # @user.sent_follow_requests_count = params.fetch("query_sent_follow_requests_count")
+    # @user.received_follow_requests_count = params.fetch("query_received_follow_requests_count")
+    # @user.own_photos_count = params.fetch("query_own_photos_count")
     
     if @user.valid?
       @user.save

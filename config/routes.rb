@@ -93,6 +93,8 @@ Rails.application.routes.draw do
   # UPDATE RECORD
   post("/modify_user", { :controller => "user_authentication", :action => "update" })
   
+  post("/modify_user/:path_id", { :controller => "user_authentication", :action => "update" })
+  
   # DELETE RECORD
   get("/cancel_user_account", { :controller => "user_authentication", :action => "destroy" })
 
