@@ -32,11 +32,12 @@ class FollowRequestsController < ApplicationController
   end
 
   def update
-    the_id = params.fetch("path_id")
-    the_follow_request = FollowRequest.where({ :id => the_id }).at(0)
+    follower_id = params.fetch("path_id")
+    recipient_id = session.fetch(:user_id)
+    the_follow_request = FollowRequest.where({ :recipient_id => recipient_id }).where({ :sender_id => follower_id }).at(0)
 
-    the_follow_request.sender_id = params.fetch("query_sender_id")
-    the_follow_request.recipient_id = params.fetch("query_recipient_id")
+    # the_follow_request.sender_id = params.fetch("query_sender_id")
+   # the_follow_request.recipient_id = params.fetch("query_recipient_id")
     the_follow_request.status = params.fetch("query_status")
 
     if the_follow_request.valid?

@@ -5,26 +5,63 @@
   <dd><%= @the_user.private %></dd>
 
   <dt>Followers</dt>
+
   <dd>
     <%= @the_user.followers.count %>
-
-
-      <div>
-          <form action="/insert_follow_request" method="post">
-            <input type="hidden" name="query_recipient_id" value="<%= @the_user.id %>">
-
-            <button>
-              Follow
-            </button>
-          </form>
-    </div>
-
   </dd>
+</dl>
 
+ <h4>Pending follow requests</h4>
+
+
+    <ul>
+          <% pending_requests = FollowRequest.where({ :recipient_id => @the_user.id }).where({ :status => "pending" }) %>
+             <% pending_requests.each do |a_request| %>
+          <li>
+            <%= a_request.sender.username %>
+
+            <form action="/modify_follow_request/<%= a_request.sender.id %>" method="post">
+              <input name="query_status" value="accepted" type="hidden">
+
+              <button>
+                Accept
+              </button>
+            </form>
+
+            <form action="/modify_follow_request/<%= a_request.sender.id %>" method="post">
+              <input name="query_status" value="rejected" type="hidden">
+            
+              <button>
+                Reject
+              </button>
+            </form>
+          </li>
+        <% end %>
+
+    </ul>
+      
+
+  
+
+  <dl>
   <dt>Following</dt>
   <dd><%= @the_user.following.count %></dd>
 
-</dl>
+  <dt>Edit user</dt>
+  <dd>
+    <form action="/modify_user/<%= @the_user.id %>" method="post">
+      <label for="browser_username">Username</label>
+      <input id="browser_username" type="text" name="query_username" placeholder="<%= @the_user.username %>"
+        value="<%= @the_user.username %>">
+
+      <label for="browser_private">Private?</label>
+      <input id="browser_private" type="checkbox" name="query_private"  checked>
+
+      <button>Update user</button>
+    </form>
+  </dd>
+
+  </dl>
 
 <nav>
   <ul>
