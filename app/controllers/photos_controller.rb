@@ -19,16 +19,16 @@ class PhotosController < ApplicationController
 
   def create
     the_photo = Photo.new
-    the_photo.caption = params.fetch("query_caption")
-    the_photo.image = params.fetch("query_image")
-    the_photo.owner_id = params.fetch("query_owner_id")
-    the_photo.location = params.fetch("query_location")
-    the_photo.likes_count = params.fetch("query_likes_count")
-    the_photo.comments_count = params.fetch("query_comments_count")
+    the_photo.caption = params.fetch("browser_caption")
+    the_photo.image = params.fetch("browser_input")
+    the_photo.owner_id = session.fetch(:user_id)
+    # the_photo.location = params.fetch("query_location")
+    # the_photo.likes_count = params.fetch("query_likes_count")
+    # the_photo.comments_count = params.fetch("query_comments_count")
 
     if the_photo.valid?
       the_photo.save
-      redirect_to("/photos", { :notice => "Photo created successfully." })
+      redirect_to("/", { :notice => "Photo created successfully." })
     else
       redirect_to("/photos", { :alert => the_photo.errors.full_messages.to_sentence })
     end
