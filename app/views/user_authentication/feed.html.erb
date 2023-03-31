@@ -64,7 +64,11 @@
   </tr>
 
 
-<% @the_user.feed.each do |a_photo| %>
+<% following_accepted = @the_user.sent_follow_requests.where({ :status => "accepted" }) %>
+<% following_accepted.each do |a_request| %>
+<% following_id = a_request.recipient_id %>
+<% user_photo_collection = Photo.where({ :owner_id => following_id }) %>
+<% user_photo_collection.each do |a_photo| %>
   <tr>
     <td>
       <img src="<%= a_photo.image %>">
@@ -93,6 +97,7 @@
     </td>
 
    </tr>
+   <% end %>
    <% end %>
 
   </table>
