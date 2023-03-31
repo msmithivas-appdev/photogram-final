@@ -19,59 +19,16 @@
     </h2>
 
     
-    <form action="/insert_photo" method="post" class="form-horizontal" enctype="multipart/form-data">
-      <div>
-        <label for="caption_box">
-          Caption
-        </label>
+    <form action="/insert_photo" method="post" enctype="multipart/form-data">
+      <label for="browser_input">Image</label>
+      <input id="browser_input" type="file" name="query_image" placeholder="Enter a URL for the image...">
 
-        <textarea id="caption_box" name="query_caption" rows="3"></textarea>
-      </div>
+      <label for="browser_caption">Caption</label>
+      <textarea id="browser_caption" name="query_caption" placeholder="Enter a caption for the photo..."></textarea>
 
-      <div>
-        <label for="image">
-          Image
-        </label>
-
-        <input type="file" id="image" name="image" class="form-control">
-      </div>
-
-      <div>
-        <label for="owner_id_box">
-          Owner
-        </label>
-
-        <input type="text" id="owner_id_box" name="query_owner_id">
-      </div>
-
-      <div>
-        <label for="location_box">
-          Location
-        </label>
-
-        <input type="text" id="location_box" name="query_location">
-      </div>
-
-      <div>
-        <label for="likes_count_box">
-          Likes count
-        </label>
-
-        <input type="text" id="likes_count_box" name="query_likes_count">
-      </div>
-
-      <div>
-        <label for="comments_count_box">
-          Comments count
-        </label>
-
-        <input type="text" id="comments_count_box" name="query_comments_count">
-      </div>
-
-      <button>
-        Add photo
-      </button>
+      <button>Add photo</button>
     </form>
+
   </div>
   <% end %>
 
@@ -107,6 +64,7 @@
       </tr>
 
       <% @list_of_photos.each do |a_photo| %>
+      <% if a_photo.owner.private == false %>
       <tr>
         <td>
           <%= a_photo.image %>
@@ -134,6 +92,7 @@
           </a>
         </td>
       </tr>
+      <% end %>
       <% end %>
     </table>
   </div>
