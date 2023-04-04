@@ -1,6 +1,6 @@
 class UserAuthenticationController < ApplicationController
   # Uncomment line 3 in this file and line 5 in ApplicationController if you want to force users to sign in before any other actions.
-  skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie] })
+  skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie, :index ] })
 
   def index
   @list_of_all_users = User.all.order(:username)
@@ -25,14 +25,14 @@ class UserAuthenticationController < ApplicationController
     
       end
 
-      def show_likes
+      # def show_likes
     
-        @the_user = @current_user
-        @the_user_likes = Like.where({ :id => @the_user.id })
+      #   @the_user = @current_user
+      #   @the_user_likes = Like.where({ :fan_id => @the_user.id })
       
-          render({ :template => "likes/show.html.erb" })
+      #     render({ :template => "likes/show.html.erb" })
       
-        end
+      #   end
   
   def sign_in_form
     render({ :template => "user_authentication/sign_in.html.erb" })
@@ -61,7 +61,7 @@ class UserAuthenticationController < ApplicationController
   def destroy_cookies
     reset_session
 
-    redirect_to("/user_sign_in", { :notice => "Signed out successfully." })
+    redirect_to("/", { :notice => "Signed out successfully." })
   end
 
   def sign_up_form

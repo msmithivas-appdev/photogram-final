@@ -63,7 +63,7 @@
   </tr>
 
 
-<% @the_user_likes.each do |a_like| %>
+<% @matching_likes.each do |a_like| %>
   <tr>
     <td>
       <img src="<%= a_like.photo.image %>">
@@ -95,6 +95,3 @@
    <% end %>
 
   </table>
-
-
-<hr>

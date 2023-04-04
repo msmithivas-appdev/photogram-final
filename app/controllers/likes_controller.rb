@@ -7,14 +7,18 @@ class LikesController < ApplicationController
     render({ :template => "likes/index.html.erb" })
   end
 
-  def show
+  def show_likes
+
     the_id = params.fetch("path_id")
 
-    matching_likes = Like.where({ :id => the_id })
+    @the_user = User.where({ :username => the_id }).at(0)
+    
+    @matching_likes = Like.where({ :fan_id => @the_user.id })
 
-    @the_like = matching_likes.at(0)
+    # @the_like = matching_likes.at(0)
 
     render({ :template => "likes/show.html.erb" })
+    
   end
 
   def create
