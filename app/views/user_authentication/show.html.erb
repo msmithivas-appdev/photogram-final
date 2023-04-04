@@ -16,7 +16,7 @@
 
                   <td>
                     <form action="/insert_follow_request" method="post">
-                    <input type="hidden" name="query_recipient_id" value="<%= a_followed.id %>">
+                    <input type="hidden" name="query_recipient_id" value="<%= @the_user.id %>">
                     <button>
                       Follow
                     </button>

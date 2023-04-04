@@ -63,8 +63,11 @@
         </th>
       </tr>
 
-      <% @list_of_photos.each do |a_photo| %>
-      <% if a_photo.owner.private == false %>
+      <% @public_owners.each do |an_owner| %>
+      <% an_owner.own_photos.each do |a_photo| %>
+      
+      <%# @list_of_photos.each do |a_photo| %>
+      <%# if a_photo.owner.private == false %>
       <tr>
         <td>
           <%= a_photo.image %>

@@ -13,7 +13,9 @@ class LikesController < ApplicationController
 
     @the_user = User.where({ :username => the_id }).at(0)
     
-    @matching_likes = Like.where({ :fan_id => @the_user.id })
+    
+    @matching_likes = Like.where({ :fan_id => @current_user.id })
+   
 
     # @the_like = matching_likes.at(0)
 

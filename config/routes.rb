@@ -43,9 +43,9 @@ Rails.application.routes.draw do
   post("/insert_like", { :controller => "likes", :action => "create" })
           
   # READ
-  get("/likes", { :controller => "likes", :action => "index" })
+  # get("/likes", { :controller => "likes", :action => "index" })
   
-  get("/likes/:path_id", { :controller => "likes", :action => "show" })
+  # get("/likes/:path_id", { :controller => "likes", :action => "show" })
   
   # UPDATE
   
