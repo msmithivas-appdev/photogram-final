@@ -12,8 +12,36 @@ class UserAuthenticationController < ApplicationController
   def show
     
     @the_user = User.where({ :username => params.fetch("path_id") }).at(0)
-  
+
+    the_id = session[:user_id]
+    @current_user = User.where({ :id => the_id }).first
+
+    if @the_user.id == @current_user.id 
+
+      # redirect_to("/", { :notice => "same person"})
       render({ :template => "user_authentication/show.html.erb" })
+    else 
+
+      follow_status = FollowRequest.where({ :sender_id => @current_user.id }).where({ :recipient_id => @the_user.id }).at(0)
+              if follow_status == nil && @the_user.private == true 
+
+                redirect_to("/", { :notice => "You're not authorized for that"})
+              elsif follow_status == nil && @the_user.private == false
+
+                render({ :template => "user_authentication/show.html.erb" })
+                # redirect_to("/", { :notice => "something else"})
+
+              elsif follow_status.status == "pending"
+                redirect_to("/", { :notice => "You're not authorized for that"})
+
+              else
+                render({ :template => "user_authentication/show.html.erb" })
+              end
+              
+
+    end
+
+  
   
     end
 
@@ -25,14 +53,7 @@ class UserAuthenticationController < ApplicationController
     
       end
 
-      # def show_likes
-    
-      #   @the_user = @current_user
-      #   @the_user_likes = Like.where({ :fan_id => @the_user.id })
-      
-      #     render({ :template => "likes/show.html.erb" })
-      
-      #   end
+
   
   def sign_in_form
     render({ :template => "user_authentication/sign_in.html.erb" })
