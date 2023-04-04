@@ -1,101 +1,100 @@
-<div>
-  <div>
-    <h1>
-      Like #<%= @the_like.id %> details
-    </h1>
+<h1><%= @the_user.username %></h1>
 
-    <div>
-      <div>
-        <a href="/likes">
-          Go back
-        </a>
-      </div>
+<dl>
+  <dt>Private</dt>
+  <dd><%= @the_user.private %></dd>
 
-      <div>
-        <a href="/delete_like/<%= @the_like.id %>">
-          Delete like
-        </a>
-      </div>
-    </div>
+  <dt>Followers</dt>
 
-    <dl>
-      <dt>
-        User
-      </dt>
-      <dd>
-        <%= @the_like.user_id %>
-      </dd>
+  <dd>
+    <%= @the_user.followers.count %>
+  </dd>
+</dl>
 
-      <dt>
-        Photo
-      </dt>
-      <dd>
-        <%= @the_like.photo_id %>
-      </dd>
+      
+  <dl>
+  <dt>Following</dt>
+  <dd><%= @the_user.following.count %></dd>
 
-      <dt>
-        Fan
-      </dt>
-      <dd>
-        <%= @the_like.fan_id %>
-      </dd>
-
-      <dt>
-        Created at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_like.created_at) %> ago
-      </dd>
-
-      <dt>
-        Updated at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_like.updated_at) %> ago
-      </dd>
-    </dl>
-  </div>
-</div>
-
-<hr>
+ 
+<nav>
+  <ul>
+    <li>
+      <a href="/users/<%= @the_user.username %>">Profile</a>
+    </li>
+    <li>
+      <a href="/users/<%= @the_user.username %>/liked_photos">Liked photos</a>
+    </li>
+    <li>
+      <a href="/users/<%= @the_user.username %>/feed">Feed</a>
+    </li>
+    <li>
+      <a href="/users/<%= @the_user.username %>/discover">Discover</a>
+    </li>
+  </ul>
+</nav>
 
 
-<div>
-  <div>
-    <h2>
-      Edit like
-    </h2>
+<h2>Liked photos (<%= @the_user.likes_count %>)</h2>
 
-    <form action="/modify_like/<%= @the_like.id %>"  method="post" >
-      <div>
-        <label for="user_id_box">
-          User
-        </label>
+<table border="1">
+  <tr>
+    <th>
+      Image
+    </th>
 
-        <input type="text" id="user_id_box" name="query_user_id" value="<%= @the_like.user_id %>">
-      </div>
+    <th>
+      Owner
+    </th>
 
-      <div>
-        <label for="photo_id_box">
-          Photo
-        </label>
+    <th>
+      Caption
+    </th>
 
-        <input type="text" id="photo_id_box" name="query_photo_id" value="<%= @the_like.photo_id %>">
-      </div>
+    <th>
+      Posted
+    </th>
 
-      <div>
-        <label for="fan_id_box">
-          Fan
-        </label>
+    <th>
+      Likes
+    </th>
 
-        <input type="text" id="fan_id_box" name="query_fan_id" value="<%= @the_like.fan_id %>">
-      </div>
+    <th></th>
+  </tr>
 
-      <button>
-        Update like
-      </button>
-    </form>
-  </div>
-</div>
+
+<% @the_user_likes.each do |a_like| %>
+  <tr>
+    <td>
+      <img src="<%= a_like.photo.image %>">
+    </td>
+
+    <td>
+      <%= a_like.photo.owner.username %>
+    </td>
+
+    <td>
+      <%= a_like.photo.caption %>
+    </td>
+
+    <td>
+      <%= time_ago_in_words(a_like.photo.created_at) + " ago" %>
+    </td>
+
+    <td>
+      <%= a_like.photo.likes_count %>
+    </td>
+
+    <td>
+      <a href="/photos/<%= a_like.photo.id %>">
+        Show details
+      </a>
+    </td>
+
+   </tr>
+   <% end %>
+
+  </table>
+
 
 <hr>
