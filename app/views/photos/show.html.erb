@@ -1,7 +1,7 @@
 <div>
   <div>
     <h1>
-      Photo details
+      Photo Details
     </h1>
 
     <div>
@@ -21,18 +21,19 @@
     </div>
 
     <dl>
-      <dt>
-        Caption
-      </dt>
-      <dd>
-        <%= @the_photo.caption %>
-      </dd>
 
       <dt>
         Image
       </dt>
       <dd>
-        <%= @the_photo.image %>
+        <img src="<%= @the_photo.image %>">
+      </dd>
+
+      <dt>
+        Caption
+      </dt>
+      <dd>
+        <%= @the_photo.caption %>
       </dd>
 
       <dt>
@@ -67,12 +68,14 @@
         Fans
       </dt>
       <dd>
-        <% photo_fans = Like.where({ :photo_id => @the_photo.id }) %>
-        <% photo_fans.each do |a_like| %>
+        
+        
+        
+        <% @the_photo.likes.each do |a_like| %>
         <% a_fan_name = User.where({ :id => a_like.fan_id }).at(0) %>
-        <%# a_like.fan_id.username %>
         <%= a_fan_name.username %>,
         <% end %>
+        
       </dd>
 
       <dt>
@@ -81,6 +84,7 @@
       <dd>
         <form action="/insert_like" method="post">
       <input type="hidden" value="<%= @the_photo.id %>" name="query_photo_id">
+      <input type="hidden" value="<%= @current_user.id %>" name="query_fan_id">
       <button>Like</button>
     </form>
       </dd>
@@ -167,27 +171,31 @@
     <th>Comment</th>
     <th>Posted</th>
   </tr>
+    <% @the_photo.comments.do each |a_comment| %>
 
     <tr>
       <td>
-        roselee
+        <%= a_comment.commenter.username %>
       </td>
 
       <td>
-        Know how to listen, and you will profit even from those who talk badly.
+         <%= a_comment.body %>
       </td>
 
       <td>
-        almost 4 years ago
+         <%= time_ago_in_words(a_comment.created_at) + " ago" %>
       </td>
     </tr>  
+    <% end %>
 
 </table>
 
 <h3>Add a new comment</h3>
 
 <form action="/insert_comment" method="post">
-  <input type="hidden" value="777" name="query_photo_id">
+  <input type="hidden" value="<%= @the_photo.id %>" name="query_photo_id">
+  <input type="hidden" value="<%= @current_user.id %>" name="query_commenter_id">
+  <input type="hidden" value="<%= @the_photo.owner_id %>" name="query_author_id">
   
   <label for="browser_comment">Comment</label>
   <textarea id="browser_comment" name="query_body" placeholder="Enter a comment..."></textarea>
