@@ -100,64 +100,64 @@
 <div>
   <div>
      <% if session.fetch(:user_id) == @the_photo.owner_id  %>
-    <h2>
-      Edit photo
-    </h2>
+          <h2>
+            Edit photo
+          </h2>
 
-    <form action="/modify_photo/<%= @the_photo.id %>"  method="post" >
-      <div>
-        <label for="caption_box">
-          Caption
-        </label>
+          <form action="/modify_photo/<%= @the_photo.id %>"  method="post" >
+            <div>
+              <label for="caption_box">
+                Caption
+              </label>
 
-        <textarea id="caption_box" name="query_caption"><%= @the_photo.caption %></textarea>
-      </div>
+              <textarea id="caption_box" name="query_caption"><%= @the_photo.caption %></textarea>
+            </div>
 
-      <div>
-        <label for="image_box">
-          Image
-        </label>
+            <div>
+              <label for="image_box">
+                Image
+              </label>
 
-        <input type="text" id="image_box" name="query_image" value="<%= @the_photo.image %>">
-      </div>
+              <input type="text" id="image_box" name="query_image" value="<%= @the_photo.image %>">
+            </div>
 
-      <div>
-        <label for="owner_id_box">
-          Owner
-        </label>
+            <div>
+              <label for="owner_id_box">
+                Owner
+              </label>
 
-        <input type="text" id="owner_id_box" name="query_owner_id" value="<%= @the_photo.owner_id %>">
-      </div>
+              <input type="text" id="owner_id_box" name="query_owner_id" value="<%= @the_photo.owner_id %>">
+            </div>
 
-      <div>
-        <label for="location_box">
-          Location
-        </label>
+            <div>
+              <label for="location_box">
+                Location
+              </label>
 
-        <input type="text" id="location_box" name="query_location" value="<%= @the_photo.location %>">
-      </div>
+              <input type="text" id="location_box" name="query_location" value="<%= @the_photo.location %>">
+            </div>
 
-      <div>
-        <label for="likes_count_box">
-          Likes count
-        </label>
+            <div>
+              <label for="likes_count_box">
+                Likes count
+              </label>
 
-        <input type="text" id="likes_count_box" name="query_likes_count" value="<%= @the_photo.likes_count %>">
-      </div>
+              <input type="text" id="likes_count_box" name="query_likes_count" value="<%= @the_photo.likes_count %>">
+            </div>
 
-      <div>
-        <label for="comments_count_box">
-          Comments count
-        </label>
+            <div>
+              <label for="comments_count_box">
+                Comments count
+              </label>
 
-        <input type="text" id="comments_count_box" name="query_comments_count" value="<%= @the_photo.comments_count %>">
-      </div>
+              <input type="text" id="comments_count_box" name="query_comments_count" value="<%= @the_photo.comments_count %>">
+            </div>
 
-      <button>
-        Update photo
-      </button>
-    </form>
-    <% end %>
+            <button>
+              Update photo
+            </button>
+          </form>
+          <% end %>
   </div>
 </div>
 
@@ -165,30 +165,36 @@
 
 <h2>Comments</h2>
 
+
 <table>
   <tr>
     <th>Commenter</th>
     <th>Comment</th>
     <th>Posted</th>
   </tr>
-    <% @the_photo.comments.do each |a_comment| %>
+  
 
-    <tr>
-      <td>
-        <%= a_comment.commenter.username %>
-      </td>
+    <% @the_photo.comments.each do |a_comment| %>
 
-      <td>
-         <%= a_comment.body %>
-      </td>
+        <tr>
+          <td>
+            <% comment_author = User.where({ :id => a_comment.author_id }).at(0) %>
+            <%= comment_author.username %>
+          </td>
 
-      <td>
-         <%= time_ago_in_words(a_comment.created_at) + " ago" %>
-      </td>
-    </tr>  
+          <td>
+            <%= a_comment.body %>
+          </td>
+
+          <td>
+            <%= time_ago_in_words(a_comment.created_at) + " ago" %>
+          </td>
+        </tr>  
     <% end %>
+    
+    </table>
 
-</table>
+
 
 <h3>Add a new comment</h3>
 
