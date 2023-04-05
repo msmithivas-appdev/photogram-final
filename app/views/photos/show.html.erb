@@ -85,6 +85,7 @@
         <form action="/insert_like" method="post">
       <input type="hidden" value="<%= @the_photo.id %>" name="query_photo_id">
       <input type="hidden" value="<%= @current_user.id %>" name="query_fan_id">
+       <input type="hidden" value="<%= @the_photo.owner_id %>" name="query_user_id">
       <button>Like</button>
     </form>
       </dd>

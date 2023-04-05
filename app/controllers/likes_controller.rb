@@ -14,7 +14,7 @@ class LikesController < ApplicationController
     @the_user = User.where({ :username => the_id }).at(0)
     
     
-    @matching_likes = Like.where({ :fan_id => @current_user.id })
+    @matching_likes = Like.where({ :fan_id => @the_user.id })
    
 
     # @the_like = matching_likes.at(0)
@@ -31,9 +31,9 @@ class LikesController < ApplicationController
 
     if the_like.valid?
       the_like.save
-      redirect_to("/likes", { :notice => "Like created successfully." })
+      redirect_to("/", { :notice => "Like created successfully" })
     else
-      redirect_to("/likes", { :alert => the_like.errors.full_messages.to_sentence })
+      redirect_to("/", { :alert => the_like.errors.full_messages.to_sentence })
     end
   end
 
