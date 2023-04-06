@@ -1,22 +1,24 @@
 class PhotosController < ApplicationController
-  skip_before_action(:force_user_sign_in, { :only => [:index ] })
+  skip_before_action(:force_user_sign_in, { :only => [:index] })
 
   def index
     matching_photos = Photo.all
 
     @list_of_photos = matching_photos.order({ :created_at => :desc })
-    
+
     @public_owners = User.where({ :private => false })
 
     render({ :template => "photos/index.html.erb" })
   end
 
   def show
-    the_id = params.fetch("path_id")
+    # the_id = params.fetch("path_id")
 
-    matching_photos = Photo.where({ :id => the_id })
+    # matching_photos = Photo.where({ :id => the_id })
 
-    @the_photo = matching_photos.at(0)
+    # @the_photo = matching_photos.at(0)
+
+    @the_photo = Photo.where(id: params.fetch("path_id")).at(0)
 
     render({ :template => "photos/show.html.erb" })
   end
@@ -51,7 +53,7 @@ class PhotosController < ApplicationController
 
     if the_photo.valid?
       the_photo.save
-      redirect_to("/photos/#{the_photo.id}", { :notice => "Photo updated successfully."} )
+      redirect_to("/photos/#{the_photo.id}", { :notice => "Photo updated successfully." })
     else
       redirect_to("/photos/#{the_photo.id}", { :alert => the_photo.errors.full_messages.to_sentence })
     end
@@ -63,6 +65,6 @@ class PhotosController < ApplicationController
 
     the_photo.destroy
 
-    redirect_to("/photos", { :notice => "Photo deleted successfully."} )
+    redirect_to("/photos", { :notice => "Photo deleted successfully." })
   end
 end

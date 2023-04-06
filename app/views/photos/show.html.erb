@@ -1,5 +1,4 @@
-<div>
-  <div>
+
     <h1>
       Photo Details
     </h1>
@@ -69,14 +68,8 @@
       </dt>
       <dd>
         
-        
-        
         <% @the_photo.likes.each do |a_like| %>
-        <% a_fan_name = User.where({ :id => a_like.fan_id }).at(0) %>
-            <% if a_fan_name.id == @current_user.id %>
-            <%   fan_status = true %>
-            <% end %>
-        <%= a_fan_name.username %>,
+          <%= a_like.fan.username %>,
         <% end %>
         
       </dd>
@@ -84,15 +77,11 @@
       <dt>
         Add a fan
       </dt>
-      
-        <% if fan_status == true %>
         <dd>
-
-        <a href="/delete_like/<%= @the_photo.id %>">
-        Unlike
-      </a>
+          <a href="/delete_like/<%= @the_photo.id %>">Unlike</a>
         </dd>
-        <% else %>
+      <% if @current_user&.has_liked? @the_photo %>
+      <% else %>
             <dd>
               <form action="/insert_like" method="post">
               <input type="hidden" value="<%= @the_photo.id %>" name="query_photo_id">
@@ -102,19 +91,14 @@
               </form>
             </dd>
         <% end %>
-
-        <% fan_status == false %>
-
      
     </dl>
-  </div>
-</div>
-
-<hr>
 
 
-<div>
-  <div>
+
+
+
+
      <% if session.fetch(:user_id) == @the_photo.owner_id  %>
           <h2>
             Edit photo
@@ -174,8 +158,7 @@
             </button>
           </form>
           <% end %>
-  </div>
-</div>
+
 
 <hr>
 
