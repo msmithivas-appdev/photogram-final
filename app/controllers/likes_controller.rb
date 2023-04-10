@@ -7,6 +7,20 @@ class LikesController < ApplicationController
     render({ :template => "likes/index.html.erb" })
   end
 
+  def discover
+
+    the_id = params.fetch("path_id")
+
+    @the_user = User.where({ :username => the_id }).at(0)
+    
+    @followed_users = FollowRequest.where({ :sender_id => @the_user.id })
+   
+   
+
+    render({ :template => "likes/show2.html.erb" })
+    
+  end
+
   def show_likes
 
     the_id = params.fetch("path_id")

@@ -87,6 +87,8 @@ Rails.application.routes.draw do
 
   get("/users/:path_id/liked_photos", { :controller => "likes", :action => "show_likes" }) 
 
+  get("/users/:path_id/discover", { :controller => "likes", :action => "discover" }) 
+
   # SIGN UP FORM
   get("/user_sign_up", { :controller => "user_authentication", :action => "sign_up_form" })        
   # CREATE RECORD
