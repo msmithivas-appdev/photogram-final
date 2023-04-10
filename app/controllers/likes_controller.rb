@@ -13,7 +13,15 @@ class LikesController < ApplicationController
 
     @the_user = User.where({ :username => the_id }).at(0)
     
-    @followed_users = FollowRequest.where({ :sender_id => @the_user.id })
+    @running_total = 0
+    @followed_user_requests = FollowRequest.where({ :sender_id => @the_user.id }).where({ :status => "accepted" })
+    @followed_user_requests.each do |a_request|
+    all_user_likes = Like.where({ :fan_id => a_request.recipient_id })
+    @running_total = @running_total + all_user_likes.count
+    end
+    
+    
+
    
    
 

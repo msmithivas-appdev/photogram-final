@@ -35,7 +35,7 @@
 </nav>
 
 
-<h2>Liked photos (<%= @the_user.likes_count %>)</h2>
+<h2>Discover (<%= @running_total %>)</h2>
 
 <table border="1">
   <tr>
@@ -62,9 +62,9 @@
     <th></th>
   </tr>
 
-<% @followed_users.each do |a_user| %>
+<% @followed_user_requests.each do |a_request| %>
 
-<% all_user_likes = Like.where({ :fan => a_user.id }) %>
+<% all_user_likes = Like.where({ :fan_id => a_request.recipient_id }) %>
 <% all_user_likes.each do |a_like| %>
   <tr>
     <td>
@@ -80,7 +80,7 @@
     </td>
 
     <td>
-      <%= time_ago_in_words a_like.photo.created_at) + " ago" %>
+      <%= time_ago_in_words(a_like.photo.created_at) + " ago" %>
     </td>
 
     <td>
