@@ -31,8 +31,8 @@ class UserAuthenticationController < ApplicationController
                 render({ :template => "user_authentication/show.html.erb" })
                 # redirect_to("/", { :notice => "something else"})
 
-              elsif follow_status.status == "pending"
-                redirect_to("/", { :notice => "You're not authorized for that"})
+              # elsif follow_status.status == "pending"
+              #   redirect_to("/", { :notice => "You're not authorized for that"})
 
               else
                 render({ :template => "user_authentication/show.html.erb" })
